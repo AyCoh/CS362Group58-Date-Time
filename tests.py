@@ -8,7 +8,6 @@ class TestCase(unittest.TestCase):
     conv_endian.
     """
 
-    """
     def test1(self):
         # Tests a positive integer
         self.assertEqual(conv_num('12345'), 12345)
@@ -84,7 +83,7 @@ class TestCase(unittest.TestCase):
     def test19(self):
         # Tests that a parameter other than 'big' or 'little' being passed for endian will return None
         self.assertEqual(conv_endian(num=-954786, endian='small'), None)
-    """
+
 
 if __name__ == '__main__':
     unittest.main()
