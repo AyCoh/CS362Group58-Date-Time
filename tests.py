@@ -84,6 +84,14 @@ class TestCase(unittest.TestCase):
         # Tests that a parameter other than 'big' or 'little' being passed for endian will return None
         self.assertEqual(conv_endian(num=-954786, endian='small'), None)
 
+    def test20(self):
+        # Tests a hex with prefix -0x
+        self.assertEqual(conv_num('0xAD4'), -2772)
+
+    def test21(self):
+        # Tests a hex with prefix -0x and non-hex digits
+        self.assertEqual(conv_num('0xAKD4'), None)
+
 
 if __name__ == '__main__':
     unittest.main()
