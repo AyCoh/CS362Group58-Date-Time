@@ -1,7 +1,7 @@
 def conv_hex(num_str):
     """
     Takes passed string that has been trimmed of '0x' or '-0x' prefix and returns the positive integer value.
-    If the passed value contains invalid digits, returns None. Called by conv_num().
+    If the passed value contains invalid digits, returns None. Called as helper function by conv_num().
     """
     integer_val = 0
     hex_digits = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9, 'A': 10, 'B': 11,
@@ -34,11 +34,11 @@ def conv_num(num_str):
     upper = 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', \
             'U', 'V', 'W', 'X', 'Y', 'Z'
 
-    # Check if num_str is positive hexadecimal and call conversion
+    # Check if num_str is positive hexadecimal and call conversion helper function
     if num_str[:2] == '0x':
         return conv_hex(num_str[2:])
 
-    # Check if num_str is negative hexadecimal and call conversion
+    # Check if num_str is negative hexadecimal and call conversion helper function
     if num_str[:3] == '-0x':
         integer_value = conv_hex(num_str[3:])
         if integer_value is not None:
