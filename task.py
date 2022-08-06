@@ -72,7 +72,6 @@ def my_datetime(num_sec):
     return '%02d-%02d-%02d' % (month, day, year)
 
 
-
 def conv_endian(num, endian='big'):
     """
     Takes an integer value and endian flag then converts and returns as a string.
