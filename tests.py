@@ -85,11 +85,11 @@ class TestCase(unittest.TestCase):
         self.assertEqual(conv_endian(num=-954786, endian='small'), None)
 
     def test20(self):
-        # Tests a hex with prefix -0x
+        # Tests a conv_num using hex with prefix -0x
         self.assertEqual(conv_num('0xAD4'), -2772)
 
     def test21(self):
-        # Tests a hex with prefix -0x and non-hex digits
+        # Tests a conv_num using hex with prefix -0x and non-hex digits
         self.assertEqual(conv_num('0xAKD4'), None)
 
 
