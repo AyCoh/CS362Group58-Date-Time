@@ -34,17 +34,17 @@ def conv_num(num_str):
     upper = 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', \
             'U', 'V', 'W', 'X', 'Y', 'Z'
 
-    # Check if num_str is positive hexadecimal and call conversion method
+    # Check if num_str is positive hexadecimal and call conversion
     if num_str[:2] == '0x':
         return conv_hex(num_str[2:])
 
-    # Check if num_str is negative hexadecimal and call conversion method
+    # Check if num_str is negative hexadecimal and call conversion
     if num_str[:3] == '-0x':
         integer_value = conv_hex(num_str[3:])
         if integer_value is not None:
             return integer_value * -1
         return integer_value
-    
+
     for digit in num_str:
         if digit in low or digit in upper:
             return None
