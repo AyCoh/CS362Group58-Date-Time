@@ -76,4 +76,46 @@ def conv_endian(num, endian='big'):
     """
     Takes an integer value and endian flag then converts and returns as a string.
     """
-    pass
+    dec_hex = {10: "A", 11: "B", 12: "C", 13: "D", 14: "E", 15: "F"}
+    pairs = []
+    hex_list = []
+    hex_string = ""
+    num_string = str(num)
+    quotient_remainder = (abs(num), 0)
+    if endian != "big" and endian != "little":
+        return None
+
+    while True:
+        if quotient_remainder[0] == 0:
+            break
+        quotient_remainder = divmod(quotient_remainder[0], 16)
+        if quotient_remainder[1] < 10:
+            hex_list.append(str(quotient_remainder[1]))
+        else:
+            hex_list.append(dec_hex[quotient_remainder[1]])
+
+    hex_list.reverse()
+
+    if len(hex_list) % 2 != 0:
+        hex_list.insert(0, "0")
+
+    for i in range(0, len(hex_list), 2):
+        pairs.append(hex_list[i] + hex_list[i + 1])
+
+    if endian == "little":
+        for i in range(len(pairs), 0, -1):
+            if i == 0:
+                hex_string = hex_string + pairs[i]
+            else:
+                hex_string = hex_string + pairs[i - 1] + " "
+    else:
+        for i in range(len(pairs)):
+            if i == len(pairs):
+                hex_string = hex_string + pairs[i]
+            else:
+                hex_string = hex_string + pairs[i] + " "
+
+    if num_string[0] == "-":
+        hex_string = "-" + hex_string
+
+    return hex_string
