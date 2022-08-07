@@ -16,6 +16,44 @@ def conv_hex(num_str):
     return integer_val
 
 
+def conv_int_or_fp(num_str):
+    """
+    Takes passed string with integer or floating point number and returns a number value.
+    If the passed string contains invalid digits or multiple decimal points, returns None.
+    Called as helper function by conv_num().
+    """
+    integer_value = 0
+    fraction_value = 0
+
+    value = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
+    sign = 1
+    decimal = False
+    fraction_counter = 1
+    decimal_count = 0
+    for digit in num_str:
+        if digit not in value:
+            if digit == '-':
+                sign = -1
+            elif digit == '.':
+                decimal_count += 1
+                if decimal_count > 1:
+                    return None
+                decimal = True
+            else:
+                return None
+        elif decimal:
+            fraction_value = (fraction_value * 10) + value[digit]
+            fraction_counter *= 10
+        else:
+            integer_value = integer_value * 10 + value[digit]
+
+    if decimal:
+        integer_value = integer_value + (fraction_value / fraction_counter)
+
+    integer_value = integer_value * sign
+    return integer_value
+
+
 def leap_year(val):
     """
     Takes passed value of a year and returns whether it is a leap year. Called as helper function by months().
@@ -48,53 +86,20 @@ def conv_num(num_str):
     if len(num_str) == 0:
         return None
 
-    integer_value = 0
-    fraction_value = 0
-
-    value = {'0': 0, '1': 1, '2': 2, '3': 3, '4': 4, '5': 5, '6': 6, '7': 7, '8': 8, '9': 9}
-    sign = +1
-    decimal = False
-    fraction_counter = 1
-    count = 0
-    low = 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', \
-          'v', 'w', 'x', 'y', 'z'
-    upper = 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', \
-            'U', 'V', 'W', 'X', 'Y', 'Z'
-
     # Check if num_str is positive hexadecimal and call conversion helper function
     if num_str[:2] == '0x':
         return conv_hex(num_str[2:])
 
     # Check if num_str is negative hexadecimal and call conversion helper function
-    if num_str[:3] == '-0x':
+    elif num_str[:3] == '-0x':
         integer_value = conv_hex(num_str[3:])
         if integer_value is not None:
             return integer_value * -1
         return integer_value
 
-    for digit in num_str:
-        if digit in low or digit in upper:
-            return None
-        if digit == '-':
-            sign = -1
-            continue
-        if digit == '.':
-            count += 1
-            if count > 1:
-                return None
-            decimal = True
-            continue
-        if decimal:
-            fraction_value = (fraction_value * 10) + value[digit]
-            fraction_counter *= 10
-        else:
-            integer_value = integer_value * 10 + value[digit]
-
-    if decimal:
-        integer_value = integer_value + (fraction_value / fraction_counter)
-
-    integer_value = integer_value * sign
-    return integer_value
+    # Else, string is an integer or floating point. Call conversion helper function.
+    else:
+        return conv_int_or_fp(num_str)
 
 
 def my_datetime(num_sec):
