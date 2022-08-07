@@ -92,6 +92,10 @@ class TestCase(unittest.TestCase):
         # Tests a conv_num using hex with prefix -0x and non-hex digits
         self.assertEqual(conv_num('0xAKD4'), None)
 
+    def test22(self):
+        # Tests a conv_num using empty string
+        self.assertEqual(conv_num(''), None)
+
 
 if __name__ == '__main__':
     unittest.main()

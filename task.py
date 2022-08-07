@@ -21,6 +21,11 @@ def conv_num(num_str):
     Takes a string and converts it into a base 10 number which is then returned.
     Can handle strings representing: integers, floating-point numbers, and integer hexadecimals with prefix '0x'.
     """
+
+    # Validate that num_str is not empty
+    if len(num_str) == 0:
+        return None
+
     integer_value = 0
     fraction_value = 0
 
