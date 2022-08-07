@@ -5,7 +5,7 @@ from task import conv_num, my_datetime, conv_endian
 class TestCase(unittest.TestCase):
     """
     Contains 19 tests lifted directly from the Part 2 examples. 1-8 test conv_num, 9-12 test my_datetime, and 13-19 test
-    conv_endian.
+    conv_endian. Additional test cases were added by our group starting with test20.
     """
 
     def test1(self):
@@ -86,7 +86,7 @@ class TestCase(unittest.TestCase):
 
     def test20(self):
         # Tests a conv_num using hex with prefix -0x
-        self.assertEqual(conv_num('0xAD4'), -2772)
+        self.assertEqual(conv_num('-0xAD4'), -2772)
 
     def test21(self):
         # Tests a conv_num using hex with prefix -0x and non-hex digits
@@ -96,6 +96,9 @@ class TestCase(unittest.TestCase):
         # Tests a conv_num using empty string
         self.assertEqual(conv_num(''), None)
 
+    def test23(self):
+        # Tests the landing at midnight
+        self.assertEqual(my_datetime(86400), '01-02-1970')
 
 if __name__ == '__main__':
     unittest.main()
