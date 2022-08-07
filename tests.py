@@ -49,7 +49,7 @@ class TestCase(unittest.TestCase):
         self.assertEqual(my_datetime(123456789), '11-29-1973')
 
     def test11(self):
-        # Tests the delorean by heading into the future
+        # Tests doc brown's delorean by heading into the future
         self.assertEqual(my_datetime(9876543210), '12-22-2282')
 
     def test12(self):
@@ -97,8 +97,13 @@ class TestCase(unittest.TestCase):
         self.assertEqual(conv_num(''), None)
 
     def test23(self):
-        # Tests the landing at midnight
+        # Tests when the time lands at midnight
         self.assertEqual(my_datetime(86400), '01-02-1970')
+
+    def test24(self):
+        # Tests when the time lands at 23:59
+        self.assertEqual(my_datetime(86399), '01-01-1970')
+
 
 if __name__ == '__main__':
     unittest.main()
