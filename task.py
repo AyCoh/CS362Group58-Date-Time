@@ -91,8 +91,8 @@ def conv_endian(num, endian='big'):
         quotient_remainder = divmod(quotient_remainder[0], 16)
         if quotient_remainder[1] < 10:
             hex_list.append(str(quotient_remainder[1]))
-        else:
-            hex_list.append(dec_hex[quotient_remainder[1]])
+            continue
+        hex_list.append(dec_hex[quotient_remainder[1]])
 
     hex_list.reverse()
 
@@ -104,16 +104,16 @@ def conv_endian(num, endian='big'):
 
     if endian == "little":
         for i in range(len(pairs), 0, -1):
-            if i == 0:
-                hex_string = hex_string + pairs[i]
-            else:
+            if i != 0:
                 hex_string = hex_string + pairs[i - 1] + " "
+                continue
+            hex_string = hex_string + pairs[i]
     else:
         for i in range(len(pairs)):
-            if i == len(pairs):
-                hex_string = hex_string + pairs[i]
-            else:
+            if i != len(pairs):
                 hex_string = hex_string + pairs[i] + " "
+                continue
+            hex_string = hex_string + pairs[i]
 
     if num_string[0] == "-":
         hex_string = "-" + hex_string
