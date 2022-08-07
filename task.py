@@ -86,9 +86,7 @@ def conv_endian(num, endian='big'):
     if endian != "big" and endian != "little":
         return None
 
-    while True:
-        if quotient_remainder[0] == 0:
-            break
+    while quotient_remainder[0] != 0:
         quotient_remainder = divmod(quotient_remainder[0], 16)
         if quotient_remainder[1] < 10:
             hex_list.append(str(quotient_remainder[1]))
