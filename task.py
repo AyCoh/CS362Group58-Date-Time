@@ -83,11 +83,8 @@ def conv_endian(num, endian='big'):
     num_string = str(num)
     quotient_remainder = (abs(num), 0)
 
-    def check_endian(endian):
-        if endian != "big" and endian != "little":
-            return None
-
-    check_endian(endian)
+    if endian != "big" and endian != "little":
+        return None
 
     while True:
         if quotient_remainder[0] == 0:
@@ -103,27 +100,17 @@ def conv_endian(num, endian='big'):
     if len(hex_list) % 2 != 0:
         hex_list.insert(0, "0")
 
-    def create_pairs(pairs):
-        for i in range(0, len(hex_list), 2):
-            pairs.append(hex_list[i] + hex_list[i + 1])
-        return pairs
-
-    pairs = create_pairs(pairs)
+    for i in range(0, len(hex_list), 2):
+        pairs.append(hex_list[i] + hex_list[i + 1])
 
     if endian == "little":
         for i in range(len(pairs), 0, -1):
-            if i != 0:
-                hex_string = hex_string + pairs[i - 1] + " "
-                continue
-            hex_string = hex_string + pairs[i]
+            hex_string = hex_string + pairs[i - 1] + " "
     else:
         for i in range(len(pairs)):
-            if i != len(pairs):
-                hex_string = hex_string + pairs[i] + " "
-                continue
-            hex_string = hex_string + pairs[i]
+            hex_string = hex_string + pairs[i] + " "
 
     if num_string[0] == "-":
         hex_string = "-" + hex_string
 
-    return hex_string
+    return hex_string.strip()
