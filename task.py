@@ -16,6 +16,28 @@ def conv_hex(num_str):
     return integer_val
 
 
+def leap_year(val):
+    """
+    Takes passed value of a year and returns whether it is a leap year. Called as helper function by months().
+    """
+    if (val % 4 == 0 and val % 100 != 0) or val % 400 == 0:
+        return True
+    return False
+
+
+def months(year, month):
+    """
+    Takes integer values for year and month and returns the number of days in that particular month.
+    Called as helper function by my_datetime().
+    """
+    day_count = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+    month_days = day_count[month]
+    if leap_year(year) and month == 2:
+        return month_days + 1
+    else:
+        return month_days
+
+
 def conv_num(num_str):
     """
     Takes a string and converts it into a base 10 number which is then returned.
@@ -81,19 +103,6 @@ def my_datetime(num_sec):
     day = 1
     year = 1970
 
-    def leapYear(val):
-        if (val % 4 == 0 and val % 100 != 0) or val % 400 == 0:
-            return True
-        False
-
-    def months(year, month):
-        dayCount = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
-        monthDays = dayCount[month]
-        if leapYear(year) and month == 2:
-            return monthDays + 1
-        else:
-            return monthDays
-
     while num_days > 0:
         num_days -= 1
         day += 1
@@ -108,7 +117,8 @@ def my_datetime(num_sec):
 
 def conv_endian(num, endian='big'):
     """
-    Takes an integer value and endian flag then converts and returns as a string.
+    Takes an integer value and endian flag then converts and returns as a hexadecimal string.
+    If no flag is given, defaults to big endian.
     """
     dec_hex = {10: "A", 11: "B", 12: "C", 13: "D", 14: "E", 15: "F"}
     pairs = []
